@@ -1,0 +1,41 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.env
+*.venv
+*.swp
+*.swo
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+*.mo
+*.py[cod]
+__pycache__/
+
+# GraphQL / IDE
+.graphql/
+*.idea/
+*.vscode/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
