@@ -1,7 +1,9 @@
+
 import re
 import graphene
 from graphene_django import DjangoObjectType
-from .models import Customer, Product, Order
+from crm.models import Customer, Product, Order
+from crm.models import Product
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from decimal import Decimal
@@ -243,3 +245,27 @@ class Mutation(graphene.ObjectType):
     bulkCreateCustomers = BulkCreateCustomers.Field()
     createProduct = CreateProduct.Field()
     createOrder = CreateOrder.Field()
+
+# Low-stock mutation
+class UpdateLowStockProducts(graphene.Mutation):
+    class Arguments:
+        pass
+
+    updated_products = graphene.List(ProductType)
+    message = graphene.String()
+
+    def mutate(self, info):
+        low_stock_products = Product.objects.filter(stock__lt=10)
+        updated = []
+        for p in low_stock_products:
+            p.stock += 10
+            p.save()
+            updated.append(p)
+        return UpdateLowStockProducts(
+            updated_products=updated,
+            message=f"{len(updated)} products were updated"
+        )
+
+# Main Mutation class
+class Mutation(graphene.ObjectType):
+    updateLowStockProducts = UpdateLowStockProducts.Field()
