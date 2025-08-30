@@ -160,7 +160,7 @@ class CreateOrder(graphene.Mutation):
     order = graphene.Field(OrderType)
 
     def mutate(self, info, input):
-        # Helper function to extract database ID from Node ID
+        # Helper function to extract database ID from Node I
         def get_database_id(node_id):
             try:
                 # Try to decode as Node ID first
